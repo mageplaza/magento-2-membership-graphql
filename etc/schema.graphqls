@@ -1,0 +1,52 @@
+## ======================================== Customer ===================================================================
+type Customer {
+    mp_membership:MpMembershipOutput @doc(description: "Membership output") @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\Customer")
+}
+
+type MpMembershipOutput {
+    transaction(
+        filter: MageplazaMembershipTransactionFilterInput @doc(description: "Identifies which Mageplaza Membership transaction attributes to search for and return.")
+        pageSize: Int = 5 @doc(description: "How many items should show on the page?")
+        currentPage: Int = 1 @doc(description: "Allow page number to start with 1")
+    ):MageplazaMembershipTransactionOutput @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\Transaction") @doc(description: "The query searches for Mageplaza Membership transaction that match the criteria specified in the filter.")
+}
+
+
+input MageplazaMembershipTransactionFilterInput {
+    history_id: FilterTypeInput @doc(description: "History Id")
+    item_id: FilterTypeInput @doc(description: "Item Id")
+    customer_id: FilterTypeInput @doc(description: "Customer Id")
+    membership_id: FilterTypeInput @doc(description: "Membership Id")
+    action: FilterTypeInput @doc(description: "Action")
+    amount: FilterTypeInput @doc(description: "Amount")
+    created_date: FilterTypeInput @doc(description: "Created Date")
+    membership_start: FilterTypeInput @doc(description: "Membership Start")
+    membership_data: FilterTypeInput @doc(description: "Membership Data")
+}
+
+type MageplazaMembershipTransactionOutput {
+    total_count: Int @doc(description: "The total number of results returned when a query is applied"),
+    items: [MageplazaMembershipTransaction] @doc(description: "Mageplaza Membership transaction data is satisfied")
+    page_info: PageInfo @doc(description: "An object that includes the pageSize and currentPage values specified in the query.")
+}
+
+type MageplazaMembershipTransaction {
+  history_id: Int @doc(description: "History Id")
+  item_id: Int @doc(description: "Item Id")
+  customer_id: Int @doc(description: "Customer Id")
+  membership_id: Int @doc(description: "Membership Id")
+  action: Int @doc(description: "Action")
+  amount: Float @doc(description: "Amount")
+  created_date: String @doc(description: "Created Date")
+  membership_start: String @doc(description: "Membership Start")
+  membership_data: String @doc(description: "Membership Data")
+}
+
+type PageInfo {
+    pageSize: Int @doc(description: "How many items should show on the page.")
+    currentPage: Int @doc(description: "Specifies which page of results to return.")
+    hasNextPage: Boolean @doc(description: "Has next page.")
+    hasPreviousPage: Boolean @doc(description: "Has previous page.")
+    startPage: Int @doc(description: "Start page.")
+    endPage: Int @doc(description: "End page.")
+}
