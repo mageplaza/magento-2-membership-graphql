@@ -25,7 +25,7 @@
         <arguments>
             <argument name="attributesInstances" xsi:type="array">
                 <item name="mp_membership_transactions" xsi:type="object">
-                    Mageplaza\MembershipGraphQl\Model\Resolver\FilterArgument\Transaction
+                    Mageplaza\MembershipGraphQl\Model\Resolver\FilterArgument\MembershipTransaction
                 </item>
             </argument>
         </arguments>

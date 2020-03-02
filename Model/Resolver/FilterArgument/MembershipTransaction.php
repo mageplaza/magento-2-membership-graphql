@@ -22,19 +22,18 @@
 
 declare(strict_types=1);
 
-namespace Mageplaza\MembeshipGraphQl\Model\Resolver\FilterArgument;
+namespace Mageplaza\MembershipGraphQl\Model\Resolver\FilterArgument;
 
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\ConfigInterface;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\FieldEntityAttributesInterface;
 
 /**
- * Class Transaction
- * @package Mageplaza\MembeshipGraphQl\Model\Resolver\FilterArgument
+ * Class MembershipTransaction
+ * @package Mageplaza\MembershipGraphQl\Model\Resolver\FilterArgument
  */
-class Transaction  implements FieldEntityAttributesInterface
+class MembershipTransaction implements FieldEntityAttributesInterface
 {
-
     /**
      * @var ConfigInterface
      */
