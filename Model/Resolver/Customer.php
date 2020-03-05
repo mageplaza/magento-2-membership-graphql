@@ -28,6 +28,7 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Mageplaza\Membership\Helper\Data;
+use Mageplaza\Membership\Model\MembershipFactory;
 
 /**
  * Class Customer
@@ -35,20 +36,28 @@ use Mageplaza\Membership\Helper\Data;
  */
 class Customer implements ResolverInterface
 {
-
     /**
      * @var Data
      */
     protected $helperData;
 
     /**
+     * @var MembershipFactory
+     */
+    protected $membershipFactory;
+
+    /**
      * Customer constructor.
+     *
      * @param Data $helperData
+     * @param MembershipFactory $membershipFactory
      */
     public function __construct(
-        Data $helperData
+        Data $helperData,
+        MembershipFactory $membershipFactory
     ) {
-        $this->helperData = $helperData;
+        $this->helperData        = $helperData;
+        $this->membershipFactory = $membershipFactory;
     }
 
     /**
@@ -60,8 +69,7 @@ class Customer implements ResolverInterface
         ResolveInfo $info,
         array $value = null,
         array $args = null
-    ): array
-    {
+    ): array {
         if (!$this->helperData->isEnabled()) {
             return [];
         }
@@ -70,8 +78,17 @@ class Customer implements ResolverInterface
             throw new LocalizedException(__('"model" value should be specified'));
         }
 
-        $customer = $value['model'];
+        $customer         = $value['model'];
         $data['customer'] = $customer;
+        $membership       = $this->membershipFactory->create()->getCurrentMembership($customer->getId());
+
+        /**
+         * Reset value to format value
+         */
+        $membership->setName($membership->getName());
+        $membership->setBenefit($membership->getBenefit());
+
+        $data['current_membership'] = $membership;
 
         return $data;
     }

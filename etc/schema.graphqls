@@ -9,8 +9,8 @@ type MpMembershipOutput {
         pageSize: Int = 5 @doc(description: "How many items should show on the page?")
         currentPage: Int = 1 @doc(description: "Allow page number to start with 1")
     ):MageplazaMembershipTransactionOutput @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\Transaction") @doc(description: "The query searches for Mageplaza Membership transaction that match the criteria specified in the filter.")
+    current_membership:CurrentMembership @doc(description: "Get current membership")
 }
-
 
 input MageplazaMembershipTransactionFilterInput {
     history_id: FilterTypeInput @doc(description: "History Id")
@@ -49,4 +49,24 @@ type PageInfo {
     hasPreviousPage: Boolean @doc(description: "Has previous page.")
     startPage: Int @doc(description: "Start page.")
     endPage: Int @doc(description: "End page.")
+}
+
+type CurrentMembership {
+  membership_id: Int @doc(description: "Membership Id")
+  name: String @doc(description: "Name")
+  status: Int @doc(description: "Status")
+  level: Int @doc(description: "Level")
+  store_id: String @doc(description: "Store Id")
+  customer_group: String @doc(description: "Customer Group")
+  is_featured: Int @doc(description: "Is Featured")
+  featured_label: String @doc(description: "Featured Label")
+  sort_order: Int @doc(description: "Sort Order")
+  default_duration_unit: String @doc(description: "Default Duration Unit")
+  default_duration_no: Float @doc(description: "Default Duration No")
+  image: String @doc(description: "Image")
+  background_color: String @doc(description: "Background Color")
+  default_product: String @doc(description: "Default Product")
+  benefit: String @doc(description: "Benefit")
+  created_at: String @doc(description: "Created At")
+  updated_at: String @doc(description: "Updated At")
 }
