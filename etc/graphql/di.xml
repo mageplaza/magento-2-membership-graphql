@@ -15,7 +15,7 @@
  * version in the future.
  *
  * @category    Mageplaza
- * @package     Mageplaza_StoreCreditGraphQl
+ * @package     Mageplaza_MembershipGraphQl
  * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
@@ -24,7 +24,7 @@
     <type name="Magento\CatalogGraphQl\Model\ProductInterfaceTypeResolverComposite">
         <arguments>
             <argument name="productTypeNameResolvers" xsi:type="array">
-                <item name="store_credit_product_type_resolver" xsi:type="object">Mageplaza\StoreCreditGraphQl\Model\StoreCreditProductTypeResolver</item>
+                <item name="membership_product_type_resolver" xsi:type="object">Mageplaza\MembershipGraphQl\Model\MembershipProductTypeResolver</item>
             </argument>
         </arguments>
     </type>
@@ -32,7 +32,7 @@
         <arguments>
             <argument name="map" xsi:type="array">
                 <item name="catalog_product" xsi:type="array">
-                    <item name="mp_store_credit" xsi:type="string">StoreCreditProduct</item>
+                    <item name="mp_membership" xsi:type="string">MembershipProduct</item>
                 </item>
             </argument>
         </arguments>

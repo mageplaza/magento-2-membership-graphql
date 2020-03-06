@@ -3,6 +3,27 @@ type Customer {
     mp_membership:MpMembershipOutput @doc(description: "Membership output") @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\Customer")
 }
 
+type MembershipProduct implements ProductInterface, CustomizableProductInterface @doc(description: "Membership defines basic features of a membership product.") {
+}
+
+interface ProductInterface {
+    mp_membership_attributes: MembershipProductAttributes @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\Product\\ProductAttribute") @doc(description: "Membership product attributes")
+}
+
+type MembershipProductAttributes {
+    membership: String @doc(description: "Membership list")
+    duration_type: String @doc(description: "Duration")
+    membership_price_fixed: Float @doc(description: "Membership price fixed" )
+    duration_options: [DurationOptions] @doc(description: "Duration options" )
+}
+
+type DurationOptions {
+    record_id: Int @doc(description: "Record id")
+    unit: String @doc(description: "Unit")
+    number: String @doc(description: "Number")
+    price: Float @doc(description: "Price")
+}
+
 type MpMembershipOutput {
     transaction(
         filter: MageplazaMembershipTransactionFilterInput @doc(description: "Identifies which Mageplaza Membership transaction attributes to search for and return.")
