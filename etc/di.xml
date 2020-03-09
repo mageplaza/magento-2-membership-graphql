@@ -27,6 +27,9 @@
                 <item name="mp_membership_transactions" xsi:type="object">
                     Mageplaza\MembershipGraphQl\Model\Resolver\FilterArgument\MembershipTransaction
                 </item>
+                <item name="mp_membership_page" xsi:type="object">
+                    Mageplaza\MembershipGraphQl\Model\Resolver\FilterArgument\MembershipPage
+                </item>
             </argument>
         </arguments>
     </type>

@@ -25,13 +25,13 @@ declare(strict_types=1);
 namespace Mageplaza\MembershipGraphQl\Model\Resolver\FilterArgument;
 
 /**
- * Class MembershipTransaction
+ * Class MembershipPage
  * @package Mageplaza\MembershipGraphQl\Model\Resolver\FilterArgument
  */
-class MembershipTransaction extends AbstractFilterArgument
+class MembershipPage extends AbstractFilterArgument
 {
     /**
      * @var string
      */
-    protected $configElementName = 'MageplazaMembershipTransaction';
+    protected $configElementName = 'MembershipPage';
 }
