@@ -52,7 +52,7 @@ class UpgradePage extends MembershipPage
         $customer         = $this->getCustomer->execute($context);
         $this->customerId = $customer->getId();
 
-        parent::resolve($field, $context, $info, $value, $args);
+       return parent::resolve($field, $context, $info, $value, $args);
     }
 
 }

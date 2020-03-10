@@ -103,9 +103,8 @@ class MembershipPage implements ResolverInterface
         $searchCriteria = $this->searchCriteriaBuilder->build('mp_membership_page', $args);
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
-
         if ($this->customerId) {
-            $searchResult = $this->membershipRepository->getUpgradePage(0, $searchCriteria);
+            $searchResult = $this->membershipRepository->getUpgradePage($this->customerId, $searchCriteria);
         } else {
             $searchResult = $this->membershipRepository->getMembershipPage($searchCriteria);
         }
