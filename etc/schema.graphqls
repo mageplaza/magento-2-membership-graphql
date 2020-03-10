@@ -12,6 +12,24 @@ type Query {
     ):MembershipPageOutput @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\UpgradePage") @doc(description: "The query searches for membership page that match the criteria specified in the filter.")
 }
 
+type Mutation {
+    addMembershipProductsToCart(input: AddMembershipProductsToCartInput): AddMembershipProductsToCartOutput @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\AddMembershipProductsToCart")
+}
+
+input AddMembershipProductsToCartInput {
+    cart_id: String!
+    membership_input: MembershipInput!
+}
+
+input MembershipInput {
+    sku: String!
+    option_id: String
+}
+
+type AddMembershipProductsToCartOutput {
+    cart: Cart!
+}
+
 input MembershipPageFilterInput {
     membership_id: FilterTypeInput @doc(description: "Membership Id")
     status: FilterTypeInput @doc(description: "Status")
@@ -36,6 +54,9 @@ type Customer {
 }
 
 type MembershipProduct implements ProductInterface, CustomizableProductInterface @doc(description: "Membership defines basic features of a membership product.") {
+}
+
+type MembershipCartItem implements CartItemInterface @doc(description: "Membership Cart Item") {
 }
 
 interface ProductInterface {
