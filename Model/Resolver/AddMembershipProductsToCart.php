@@ -120,7 +120,6 @@ class AddMembershipProductsToCart implements ResolverInterface
         }
 
         try {
-
             $buyRequest = [
                 'qty'                            => 1,
                 'sku'                            => $sku,
@@ -140,7 +139,6 @@ class AddMembershipProductsToCart implements ResolverInterface
         if (is_string($result)) {
             throw new GraphQlInputException(__($result));
         }
-
 
         if ($cart->getData('has_error')) {
             throw new GraphQlInputException(

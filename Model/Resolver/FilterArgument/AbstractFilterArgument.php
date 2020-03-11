@@ -27,6 +27,7 @@ namespace Mageplaza\MembershipGraphQl\Model\Resolver\FilterArgument;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\ConfigInterface;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\FieldEntityAttributesInterface;
+use Mageplaza\Membership\Helper\Data;
 
 /**
  * Class AbstractFilterArgument
@@ -45,13 +46,21 @@ abstract class AbstractFilterArgument implements FieldEntityAttributesInterface
     private $config;
 
     /**
-     * FilterArgument constructor.
-     *
-     * @param ConfigInterface $config
+     * @var Data
      */
-    public function __construct(ConfigInterface $config)
-    {
-        $this->config = $config;
+    protected $helperData;
+
+    /**
+     * AbstractFilterArgument constructor.
+     * @param ConfigInterface $config
+     * @param Data $helperData
+     */
+    public function __construct(
+        ConfigInterface $config,
+        Data $helperData
+    ) {
+        $this->config     = $config;
+        $this->helperData = $helperData;
     }
 
     /**
@@ -63,9 +72,10 @@ abstract class AbstractFilterArgument implements FieldEntityAttributesInterface
 
         /** @var Field $field */
         foreach ($this->config->getConfigElement($this->configElementName)->getFields() as $field) {
-            $fields[$field->getName()] = '';
+            $fieldName = $field->getName();
+            $fields[$fieldName] = ['fieldName' => $fieldName];
         }
 
-        return array_keys($fields);
+        return $this->helperData->versionCompare('2.3.4') ? $fields : array_keys($fields);
     }
 }

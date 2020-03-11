@@ -25,7 +25,6 @@ namespace Mageplaza\MembershipGraphQl\Model\Resolver;
 
 use Magento\CustomerGraphQl\Model\Customer\GetCustomer;
 use Magento\Framework\GraphQl\Config\Element\Field;
-use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Exception\GraphQlNoSuchEntityException;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\Builder as SearchCriteriaBuilder;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
@@ -37,7 +36,7 @@ use Mageplaza\Membership\Model\MembershipRepository;
  * Class MembershipPage
  * @package Mageplaza\MembershipGraphQl\Model\Resolver
  */
-class MembershipPage implements ResolverInterface
+class MembershipPage extends AbstractMembership implements ResolverInterface
 {
     /**
      * @var SearchCriteriaBuilder
@@ -93,13 +92,7 @@ class MembershipPage implements ResolverInterface
             throw new GraphQlNoSuchEntityException(__('Reward points is disabled.'));
         }
 
-        if (isset($args['currentPage']) && $args['currentPage'] < 1) {
-            throw new GraphQlInputException(__('currentPage value must be greater than 0.'));
-        }
-
-        if (isset($args['pageSize']) && $args['pageSize'] < 1) {
-            throw new GraphQlInputException(__('pageSize value must be greater than 0.'));
-        }
+        $this->validate($args);
         $searchCriteria = $this->searchCriteriaBuilder->build('mp_membership_page', $args);
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
@@ -109,41 +102,6 @@ class MembershipPage implements ResolverInterface
             $searchResult = $this->membershipRepository->getMembershipPage($searchCriteria);
         }
 
-        return [
-            'total_count' => $searchResult->getTotalCount(),
-            'items'       => $searchResult->getItems(),
-            'page_info'   => $this->getPageInfo($searchResult, $args)
-        ];
-    }
-
-    /**
-     * @param $searchResult
-     * @param array $args
-     *
-     * @return array
-     * @throws GraphQlInputException
-     */
-    private function getPageInfo($searchResult, $args)
-    {
-        $totalPages  = ceil($searchResult->getTotalCount() / $args['pageSize']);
-        $currentPage = $args['currentPage'];
-
-        if ($currentPage > $totalPages && $searchResult->getTotalCount() > 0) {
-            throw new GraphQlInputException(
-                __(
-                    'currentPage value %1 specified is greater than the %2 page(s) available.',
-                    [$currentPage, $totalPages]
-                )
-            );
-        }
-
-        return [
-            'pageSize'        => $args['pageSize'],
-            'currentPage'     => $currentPage,
-            'hasNextPage'     => $currentPage < $totalPages,
-            'hasPreviousPage' => $currentPage > 1,
-            'startPage'       => 1,
-            'endPage'         => $totalPages,
-        ];
+        return $this->getResult($searchResult, $args);
     }
 }
