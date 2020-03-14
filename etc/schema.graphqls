@@ -16,6 +16,21 @@ type Mutation {
     addMembershipProductsToCart(input: AddMembershipProductsToCartInput): AddMembershipProductsToCartOutput @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\AddMembershipProductsToCart")
 }
 
+type Customer {
+    mp_membership:MpMembershipOutput @doc(description: "Membership output") @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\Customer")
+}
+
+type MembershipProduct implements ProductInterface, CustomizableProductInterface @doc(description: "Membership defines basic features of a membership product.") {
+}
+
+type MembershipCartItem implements CartItemInterface @doc(description: "Membership Cart Item") {
+     duration: String @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\QuoteItem\\Duration")
+}
+
+interface ProductInterface {
+    mp_membership_attributes: MembershipProductAttributes @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\Product\\ProductAttribute") @doc(description: "Membership product attributes")
+}
+
 input AddMembershipProductsToCartInput {
     cart_id: String!
     membership_input: MembershipInput!
@@ -47,22 +62,6 @@ input MembershipPageFilterInput {
     updated_at: FilterTypeInput @doc(description: "Updated At")
 }
 
-
-## ======================================== Customer ===================================================================
-type Customer {
-    mp_membership:MpMembershipOutput @doc(description: "Membership output") @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\Customer")
-}
-
-type MembershipProduct implements ProductInterface, CustomizableProductInterface @doc(description: "Membership defines basic features of a membership product.") {
-}
-
-type MembershipCartItem implements CartItemInterface @doc(description: "Membership Cart Item") {
-}
-
-interface ProductInterface {
-    mp_membership_attributes: MembershipProductAttributes @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\Product\\ProductAttribute") @doc(description: "Membership product attributes")
-}
-
 type MembershipProductAttributes {
     membership: String @doc(description: "Membership list")
     duration_type: String @doc(description: "Duration")
@@ -83,7 +82,7 @@ type MpMembershipOutput {
         pageSize: Int = 5 @doc(description: "How many items should show on the page?")
         currentPage: Int = 1 @doc(description: "Allow page number to start with 1")
     ):MageplazaMembershipTransactionOutput @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\Transaction") @doc(description: "The query searches for Mageplaza Membership transaction that match the criteria specified in the filter.")
-    current_membership:Membership @doc(description: "Get current membership")
+    current_membership:CurrentMembership @doc(description: "Get current membership")
 }
 
 input MageplazaMembershipTransactionFilterInput {
@@ -125,7 +124,10 @@ type PageInfo {
     endPage: Int @doc(description: "End page.")
 }
 
-type Membership {
+type CurrentMembership implements Membership {
+}
+
+interface Membership @typeResolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\MembershipWrapperInterface") {
   membership_id: Int @doc(description: "Membership Id")
   name: String @doc(description: "Name")
   status: Int @doc(description: "Status")
@@ -133,6 +135,7 @@ type Membership {
   store_id: String @doc(description: "Store Id")
   customer_group: String @doc(description: "Customer Group")
   is_featured: Int @doc(description: "Is Featured")
+  featured_image: String @doc(description: "Featured Image")
   featured_label: String @doc(description: "Featured Label")
   sort_order: Int @doc(description: "Sort Order")
   default_duration_unit: String @doc(description: "Default Duration Unit")
@@ -151,26 +154,9 @@ type MembershipPageOutput {
     page_info: PageInfo @doc(description: "An object that includes the pageSize and currentPage values specified in the query.")
 }
 
-type MembershipPage {
-  membership_id: Int @doc(description: "Membership Id")
-  name: String @doc(description: "Name")
-  status: Int @doc(description: "Status")
-  level: Int @doc(description: "Level")
-  customer_group: Int @doc(description: "Customer Group")
-  is_featured: Int @doc(description: "Is Featured")
-  featured_image: String @doc(description: "Featured Image")
-  featured_label: String @doc(description: "Featured Label")
-  sort_order: Int @doc(description: "Sort Order")
-  default_duration_unit: String @doc(description: "Default Duration Unit")
-  default_duration_no: Float @doc(description: "Default Duration No")
-  image: String @doc(description: "Image")
-  background_color: String @doc(description: "Background Color")
-  default_product: Int @doc(description: "Default Product")
+type MembershipPage implements Membership {
   duration: String @doc(description: "Duration")
   is_out_of_stock: Boolean @doc(description: "Is_Out_Of_Stock")
   price: String @doc(description: "String")
   options: String @doc(description: "Options")
-  benefit: String @doc(description: "Benefit")
-  created_at: String @doc(description: "Created At")
-  updated_at: String @doc(description: "Updated At")
 }

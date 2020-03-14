@@ -21,16 +21,21 @@
 
 declare(strict_types=1);
 
-namespace Mageplaza\MembershipGraphQl\Model\Resolver\FilterArgument;
+namespace Mageplaza\MembershipGraphQl\Model\Resolver;
+
+use Magento\Framework\GraphQl\Query\Resolver\TypeResolverInterface;
 
 /**
- * Class MembershipPage
- * @package Mageplaza\MembershipGraphQl\Model\Resolver\FilterArgument
+ * Class MembershipWrapperInterface
+ * @package Mageplaza\MembershipGraphQl\Model\Resolver
  */
-class MembershipPage extends AbstractFilterArgument
+class MembershipWrapperInterface implements TypeResolverInterface
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
-    protected $configElementName = 'MembershipPage';
+    public function resolveType(array $data): string
+    {
+        return 'Membership';
+    }
 }

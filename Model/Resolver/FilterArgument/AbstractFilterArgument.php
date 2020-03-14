@@ -19,7 +19,6 @@
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
-
 declare(strict_types=1);
 
 namespace Mageplaza\MembershipGraphQl\Model\Resolver\FilterArgument;

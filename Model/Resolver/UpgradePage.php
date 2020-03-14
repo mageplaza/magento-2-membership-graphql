@@ -39,10 +39,9 @@ class UpgradePage extends MembershipPage
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        if ($this->helperData->versionCompare('2.3.3')) {
-            if ($context->getExtensionAttributes()->getIsCustomer() === false) {
-                throw new GraphQlAuthorizationException(__('The current customer isn\'t authorized.'));
-            }
+        if ($this->helperData->versionCompare('2.3.3') &&
+            $context->getExtensionAttributes()->getIsCustomer() === false) {
+            throw new GraphQlAuthorizationException(__('The current customer isn\'t authorized.'));
         }
 
         /** @var Customer $customer */
@@ -52,7 +51,6 @@ class UpgradePage extends MembershipPage
         $customer         = $this->getCustomer->execute($context);
         $this->customerId = $customer->getId();
 
-       return parent::resolve($field, $context, $info, $value, $args);
+        return parent::resolve($field, $context, $info, $value, $args);
     }
-
 }

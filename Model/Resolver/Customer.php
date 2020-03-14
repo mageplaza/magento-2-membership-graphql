@@ -28,7 +28,7 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Mageplaza\Membership\Helper\Data;
-use Mageplaza\Membership\Model\MembershipFactory;
+use Mageplaza\Membership\Model\MembershipRepository;
 
 /**
  * Class Customer
@@ -42,22 +42,21 @@ class Customer implements ResolverInterface
     protected $helperData;
 
     /**
-     * @var MembershipFactory
+     * @var MembershipRepository
      */
-    protected $membershipFactory;
+    protected $membershipRepository;
 
     /**
      * Customer constructor.
-     *
      * @param Data $helperData
-     * @param MembershipFactory $membershipFactory
+     * @param MembershipRepository $membershipRepository
      */
     public function __construct(
         Data $helperData,
-        MembershipFactory $membershipFactory
+        MembershipRepository $membershipRepository
     ) {
-        $this->helperData        = $helperData;
-        $this->membershipFactory = $membershipFactory;
+        $this->helperData           = $helperData;
+        $this->membershipRepository = $membershipRepository;
     }
 
     /**
@@ -80,7 +79,7 @@ class Customer implements ResolverInterface
 
         $customer         = $value['model'];
         $data['customer'] = $customer;
-        $membership       = $this->membershipFactory->create()->getCurrentMembership($customer->getId());
+        $membership       = $this->membershipRepository->getCurrentMembership($customer->getId());
 
         /**
          * Reset value to format value
