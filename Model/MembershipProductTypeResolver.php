@@ -39,7 +39,7 @@ class MembershipProductTypeResolver implements TypeResolverInterface
      */
     public function resolveType(array $data): string
     {
-        if (isset($data['type_id']) && $data['type_id'] == Membership::TYPE_MEMBERSHIP) {
+        if (isset($data['type_id']) && $data['type_id'] === Membership::TYPE_MEMBERSHIP) {
             return self::TYPE;
         }
 

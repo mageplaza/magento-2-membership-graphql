@@ -89,7 +89,7 @@ class MembershipPage extends AbstractMembership implements ResolverInterface
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         if (!$this->helperData->isEnabled()) {
-            throw new GraphQlNoSuchEntityException(__('Reward points is disabled.'));
+            throw new GraphQlNoSuchEntityException(__('Membership is disabled.'));
         }
 
         $this->validate($args);
