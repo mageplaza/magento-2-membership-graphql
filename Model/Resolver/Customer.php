@@ -81,12 +81,6 @@ class Customer implements ResolverInterface
         $data['customer'] = $customer;
         $membership       = $this->membershipRepository->getCurrentMembership($customer->getId());
 
-        /**
-         * Reset value to format value
-         */
-        $membership->setName($membership->getName());
-        $membership->setBenefit($membership->getBenefit());
-
         $data['current_membership'] = $membership;
 
         return $data;
