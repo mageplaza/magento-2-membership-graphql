@@ -108,6 +108,8 @@ type MageplazaMembershipTransaction {
   item_id: Int @doc(description: "Item Id")
   customer_id: Int @doc(description: "Customer Id")
   membership_id: Int @doc(description: "Membership Id")
+  membership_name: String @doc(description: "Membership Name")
+  item_product_name: String @doc(description: "Order Item product name ")
   action: Int @doc(description: "Action")
   amount: Float @doc(description: "Amount")
   created_date: String @doc(description: "Created Date")
