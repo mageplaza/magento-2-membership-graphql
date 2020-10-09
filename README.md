@@ -1,5 +1,5 @@
-# Membership GraphQL
-Mageplaza Membership Extension supports getting and pushing data on the website with GraphQl.
+# Magento 2 Membership GraphQL (Support PWA)
+Mageplaza Magento 2 Membership GraphQL (PWA) supports getting and pushing data on the website with GraphQL.
 
 ## How to install
 Run the following command in Magento 2 root folder:
