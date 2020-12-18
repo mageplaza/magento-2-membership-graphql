@@ -1,5 +1,7 @@
 # Magento 2 Membership GraphQL (Support PWA)
 
+**Magento 2 Membership GraphQL is a part of Mageplaza Membership extension that adds GraphQL features.** Mageplaza Magento 2 Membership GraphQL (PWA) supports getting and pushing data on the website with GraphQL, along with PWA compatibility support.
+
 [Mageplaza Membership for Magento 2](https://www.mageplaza.com/magento-2-membership/) is an effective tool to create customer memberships on the online store that increase customer engagement and loyalty. 
 
 With Mageplaza Membership, the store admin can create different membership levels, such as bronze, silver, and gold. The store admin can assign specific products to each level of membership. Customers will be classified into different membership levels based on the products they buy. The assigned products are not limited to any specific type, so it’s flexible for the store owner to draw customers to a certain product that needs to be promoted. 
@@ -9,8 +11,6 @@ When customers are members of a membership group, they will have specific privil
 Customers can also upgrade their membership level by paying a fixed price for a higher membership package or applying discounts to save money. To motivate customers to take a longer membership time, the store can offer different price levels corresponding to the membership duration. The rule is the longer membership is, the lower the price customers have to pay. For example, for the Gold membership package, $300 for 3 months, $200 for 6 months, and $100 for 12 months. 
 
 It’s easy to customize the membership cards. You can change the feature images, the background of the cards, and add the noticeable labels to attract customers. 
-
-What’s more, **Magento 2 Membership GraphQL is a part of Mageplaza Membership extension that adds GraphQL features.** Mageplaza Magento 2 Membership GraphQL (PWA) supports getting and pushing data on the website with GraphQL, along with PWA compatibility support.
 
 ## 1. How to install
 Run the following command in Magento 2 root folder:
