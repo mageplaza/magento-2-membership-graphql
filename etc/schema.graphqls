@@ -20,7 +20,7 @@ type Customer {
     mp_membership:MpMembershipOutput @doc(description: "Membership output") @resolver(class: "Mageplaza\\MembershipGraphQl\\Model\\Resolver\\Customer")
 }
 
-type MembershipProduct implements ProductInterface, CustomizableProductInterface @doc(description: "Membership defines basic features of a membership product.") {
+type MembershipProduct implements ProductInterface, RoutableInterface, PhysicalProductInterface, CustomizableProductInterface @doc(description: "Membership defines basic features of a membership product.") {
 }
 
 type MembershipCartItem implements CartItemInterface @doc(description: "Membership Cart Item") {
